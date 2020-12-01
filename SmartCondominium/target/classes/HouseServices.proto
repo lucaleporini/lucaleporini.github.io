@@ -1,0 +1,53 @@
+syntax="proto3";
+
+package protosPackage;
+
+service HouseServices{
+
+    rpc hello(House) returns (HouseResponse);
+    rpc addStatistic(Statistic) returns (Response);
+    rpc exit(exitHouse) returns (Response);
+
+    //election
+    rpc election(House) returns(Response);
+    rpc newCoordinator(House) returns(Response);
+
+    //extra usage
+    rpc requestBoost(BoostRequest) returns(BoostResponse);
+    rpc reply(House) returns(Response);
+}
+
+message House{
+    string id = 1;
+    string ip = 2;
+    int32 port = 3;
+}
+message exitHouse{
+    House house = 1;
+    //bool coordinator = 2;
+}
+
+message Response{
+    string text = 1;
+}
+
+message BoostRequest{
+    House house = 1;
+    int64 timestamp = 2;
+}
+message HouseResponse{
+    bool coordinator = 1;
+}
+
+message Statistic{
+    string id = 1;
+    double value = 2;
+    int64 timestamp = 3;
+}
+
+message BoostResponse{
+    House house = 1;
+    string text = 2;
+}
+
+//DA SISTEMARE -- AGGIUNGERE UN NUOVO MESSAGGIO Response con solo testo
